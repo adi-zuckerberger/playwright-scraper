@@ -27,13 +27,16 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+# Set environment variable to match where Playwright is looking for browsers
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/render/.cache/ms-playwright
+
 # Copy package files
 COPY package*.json ./
 
 # Install Node dependencies
 RUN npm install
 
-# Install Playwright browsers
+# Install Playwright browsers in the correct location
 RUN npx playwright install chromium
 
 # Copy application code
