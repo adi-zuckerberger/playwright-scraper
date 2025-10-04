@@ -8,9 +8,9 @@ COPY package*.json ./
 # Install Node dependencies
 RUN npm install
 
-# Install Playwright browsers and set proper permissions
-RUN npx playwright install chromium && \
-    chmod -R 755 /ms-playwright
+# Verify Playwright browsers are available
+RUN npx playwright --version && \
+    ls -la /ms-playwright/ || echo "No /ms-playwright directory found"
 
 # Copy application code
 COPY . .
